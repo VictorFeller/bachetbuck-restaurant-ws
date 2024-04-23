@@ -54,5 +54,11 @@ INSERT INTO visits VALUES (default, 7, '2013-01-04', 'spayed');
 
 
 --Ticket
-INSERT INTO tickets VALUES (default, '234,50', '2024-01-01');
-INSERT INTO tickets VALUES (15, '234,50', '2024-01-01');
+INSERT INTO tickets VALUES (default, 1001, '2023-04-01', 159.99, '2x t-shirt, 1x jeans', 'Credit Card', 'Paris Mall', 'Alice Dupont', '4716258050958645');
+INSERT INTO tickets VALUES (default, 1002, '2023-04-02', 299.50, '1x coat, 3x sweater', 'Debit Card', 'Lyon Center', 'Bob Martin', '4716258050958645');
+INSERT INTO tickets VALUES (default, 1003, '2023-04-02', 450.00, '1x laptop bag, 2x charger', 'Cash', 'Nice Plaza', 'Charlie Chaplin', '4716258050958645');
+INSERT INTO tickets VALUES (default, 1004, '2023-04-03', 23.75, '3x notebook, 2x pen', 'Credit Card', 'Marseille Bay', 'Diana Ross', '4716258050958645');
+INSERT INTO tickets VALUES (default, 1005, '2023-04-03', 89.95, '1x backpack, 1x water bottle', 'PayPal', 'Toulouse Market', 'Eve Polastri', '4716258050958645');
+
+
+

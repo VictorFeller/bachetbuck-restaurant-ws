@@ -41,7 +41,6 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public interface TicketRepository extends Repository<Ticket, Integer> {
 
-
 	/**
 	 * Retrieve an {@link Ticket} from the data store by id.
 	 * @param id the id to search for

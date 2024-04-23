@@ -17,12 +17,8 @@
 package ch.heg.ig.BachEtBuck.system;
 
 import ch.heg.ig.BachEtBuck.business.Ticket;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 class WelcomeController {
@@ -30,18 +26,15 @@ class WelcomeController {
 	@GetMapping("/")
 	public Ticket welcome() {
 		Ticket ticket = new Ticket();
-		ticket.setDate("01.01.2024");
-		ticket.setId(001);
-		ticket.setPrice("24,90");
+		ticket.setId(1);
 
 		return ticket;
 
-
-//		List<String> listTest = new ArrayList<>();
-//		listTest.add("welcome");
-//		return listTest;
-//		return new ArrayList<>().add("salut");
-//		return new List<>().add("welcome");
+		// List<String> listTest = new ArrayList<>();
+		// listTest.add("welcome");
+		// return listTest;
+		// return new ArrayList<>().add("salut");
+		// return new List<>().add("welcome");
 	}
 
 }
