@@ -1,34 +1,42 @@
 package ch.heg.ig.BachEtBuck.services;
 
 import ch.heg.ig.BachEtBuck.business.Ticket;
+import ch.heg.ig.BachEtBuck.business.Tickets;
 import ch.heg.ig.BachEtBuck.owner.Owner;
-import ch.heg.ig.BachEtBuck.owner.OwnerRepository;
 import ch.heg.ig.BachEtBuck.persistance.TicketRepository;
-import org.springframework.stereotype.Controller;
+import ch.heg.ig.BachEtBuck.vet.Vets;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Victor Feller
  */
-@Controller
+@RestController
 public class TicketController {
 
-	public TicketController(TicketRepository ticket) {
-		this.ticket = ticket;
+	private final TicketRepository ticketRepository;
+
+	public TicketController(TicketRepository ticketRepository) {
+		this.ticketRepository = ticketRepository;
 	}
 
-	private final TicketRepository ticket;
+	@GetMapping("ticket")
+	public Ticket findTicket(@PathVariable(name = "ticketId", required = true) @RequestParam Integer ticketId) {
+		return ticketId == null ? new Ticket() : this.ticketRepository.findById(ticketId);
+	}
 
-	@GetMapping("/tickets/{ticketId}")
-	public ModelAndView showTicket(@PathVariable("ticketId") int ticketId) {
-		ModelAndView mav = new ModelAndView("tickets/ticketsDetails");
-		Ticket ticket = this.ticket.findById(ticketId);
-		mav.addObject(ticket);
-		// Owner owner = this.owners.findById(ownerId);
-		// mav.addObject(owner);
-		return mav;
+	@GetMapping("/tickets/all")
+	public List<Ticket> showTickets() {
+		Tickets tickets = new Tickets();
+		tickets.getTicketList().addAll(this.ticketRepository.findAll());
+		return tickets.getTicketList();
 	}
 
 }

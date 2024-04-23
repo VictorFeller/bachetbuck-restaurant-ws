@@ -55,3 +55,4 @@ INSERT INTO visits VALUES (default, 7, '2013-01-04', 'spayed');
 
 --Ticket
 INSERT INTO tickets VALUES (default, '234,50', '2024-01-01');
+INSERT INTO tickets VALUES (15, '234,50', '2024-01-01');

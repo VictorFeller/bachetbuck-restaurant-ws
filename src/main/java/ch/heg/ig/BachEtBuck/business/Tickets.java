@@ -13,35 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package ch.heg.ig.BachEtBuck.business;
 
-package ch.heg.ig.BachEtBuck.system;
-
-import ch.heg.ig.BachEtBuck.business.Ticket;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import ch.heg.ig.BachEtBuck.vet.Vet;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
-class WelcomeController {
+//import jakarta.xml.bind.annotation.XmlElement;
+//import jakarta.xml.bind.annotation.XmlRootElement;
 
-	@GetMapping("/")
-	public Ticket welcome() {
-		Ticket ticket = new Ticket();
-		ticket.setDate("01.01.2024");
-		ticket.setId(001);
-		ticket.setPrice("24,90");
+/**
+ * Simple domain object representing a list of veterinarians. Mostly here to be used for
+ * the 'vets' {@link org.springframework.web.servlet.view.xml.MarshallingView}.
+ *
+ * @author Arjen Poutsma
+ */
+public class Tickets {
 
-		return ticket;
+	private List<Ticket> tickets;
 
-
-//		List<String> listTest = new ArrayList<>();
-//		listTest.add("welcome");
-//		return listTest;
-//		return new ArrayList<>().add("salut");
-//		return new List<>().add("welcome");
+	public List<Ticket> getTicketList() {
+		if (tickets == null) {
+			tickets = new ArrayList<>();
+		}
+		return tickets;
 	}
 
 }

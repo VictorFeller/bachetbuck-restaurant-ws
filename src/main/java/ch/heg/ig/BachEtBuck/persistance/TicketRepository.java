@@ -15,9 +15,15 @@
  */
 package ch.heg.ig.BachEtBuck.persistance;
 
+import java.util.Collection;
 import java.util.List;
 
 import ch.heg.ig.BachEtBuck.business.Ticket;
+import ch.heg.ig.BachEtBuck.services.TicketController;
+import ch.heg.ig.BachEtBuck.vet.Vet;
+import ch.heg.ig.BachEtBuck.vet.VetRepository;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -35,6 +41,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public interface TicketRepository extends Repository<Ticket, Integer> {
 
+
 	/**
 	 * Retrieve an {@link Ticket} from the data store by id.
 	 * @param id the id to search for
@@ -45,10 +52,11 @@ public interface TicketRepository extends Repository<Ticket, Integer> {
 	Ticket findById(@Param("id") Integer id);
 
 	/**
-	 * Returns all the tickets from data store
-	 **/
-	// @Query("SELECT ticket FROM Ticket ticket")
-	// @Transactional(readOnly = true)
-	// Page<Ticket> findAll(Pageable pageable);
+	 * Retrieve all <code>Ticket</code>s from the data store.
+	 * @return a <code>Collection</code> of <code>Ticket</code>s
+	 */
+	@Transactional(readOnly = true)
+	@Cacheable("tickets")
+	Collection<Ticket> findAll() throws DataAccessException;
 
 }
