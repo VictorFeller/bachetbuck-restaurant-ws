@@ -15,11 +15,11 @@
  */
 package ch.heg.ig.BachEtBuck.vet;
 
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
 import java.util.ArrayList;
 import java.util.List;
-
-//import jakarta.xml.bind.annotation.XmlElement;
-//import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * Simple domain object representing a list of veterinarians. Mostly here to be used for
@@ -27,10 +27,12 @@ import java.util.List;
  *
  * @author Arjen Poutsma
  */
+@XmlRootElement
 public class Vets {
 
 	private List<Vet> vets;
 
+	@XmlElement
 	public List<Vet> getVetList() {
 		if (vets == null) {
 			vets = new ArrayList<>();

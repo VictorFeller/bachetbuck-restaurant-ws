@@ -15,21 +15,15 @@
  */
 package ch.heg.ig.BachEtBuck.persistance;
 
-import java.util.Collection;
-import java.util.List;
-
 import ch.heg.ig.BachEtBuck.business.Ticket;
-import ch.heg.ig.BachEtBuck.services.TicketController;
-import ch.heg.ig.BachEtBuck.vet.Vet;
-import ch.heg.ig.BachEtBuck.vet.VetRepository;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
 
 /**
  * Repository class for <code>Ticket</code> domain objects All method names are compliant
@@ -49,6 +43,15 @@ public interface TicketRepository extends Repository<Ticket, Integer> {
 	@Query("SELECT ticket FROM Ticket ticket WHERE ticket.id =:id")
 	@Transactional(readOnly = true)
 	Ticket findById(@Param("id") Integer id);
+
+	/**
+	 * Retrieve an {@link Ticket} from the data store by date format dd.mm.yyyy.
+	 * @param purchaseDate the id to search for
+	 * @return the {@link Ticket} if found
+	 */
+	@Query("SELECT ticket FROM Ticket ticket WHERE ticket.purchaseDate =:purchaseDate")
+	@Transactional(readOnly = true)
+	Ticket findByPurchaseDate(@Param("purchaseDate") String purchaseDate);
 
 	/**
 	 * Retrieve all <code>Ticket</code>s from the data store.
