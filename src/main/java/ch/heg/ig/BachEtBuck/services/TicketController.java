@@ -28,7 +28,8 @@ public class TicketController {
 	}
 
 	@GetMapping("ticket")
-	public Ticket findByPurchaseDate(@PathVariable(name = "purchaseDate", required = false) @RequestParam String purchaseDate) {
+	public Ticket findByPurchaseDate(
+			@PathVariable(name = "purchaseDate", required = false) @RequestParam String purchaseDate) {
 		return purchaseDate == null ? new Ticket() : this.ticketRepository.findByPurchaseDate(purchaseDate);
 	}
 

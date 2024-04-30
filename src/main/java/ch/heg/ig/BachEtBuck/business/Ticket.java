@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "tickets")
 public class Ticket extends BaseEntity {
+
 	@Getter
 	@Setter
 	@Column(name = "receipt_number")
@@ -26,19 +27,17 @@ public class Ticket extends BaseEntity {
 	@NotNull
 	private String purchaseDate;
 
-
 	@Getter
 	@Setter
 	@Column(name = "items_purchased")
 	@NotBlank
 	private String itemsPurchased;
 
-
 	@Getter
-	@Setter@Column(name = "quantity")
+	@Setter
+	@Column(name = "quantity")
 	@NotBlank
 	private Integer quantity;
-
 
 	@Getter
 	@Setter
@@ -46,13 +45,11 @@ public class Ticket extends BaseEntity {
 	@NotBlank
 	private Double pricePerItem;
 
-
 	@Getter
 	@Setter
 	@Column(name = "total_amount")
 	@NotNull
 	private BigDecimal totalAmount;
-
 
 	@Getter
 	@Setter
@@ -60,13 +57,11 @@ public class Ticket extends BaseEntity {
 	@NotBlank
 	private String paymentMethod;
 
-
 	@Getter
 	@Setter
 	@Column(name = "store_location")
 	@NotBlank
 	private String storeLocation;
-
 
 	@Getter
 	@Setter
@@ -74,13 +69,11 @@ public class Ticket extends BaseEntity {
 	@NotBlank
 	private String cashierName;
 
-
 	@Getter
 	@Setter
 	@Column(name = "card_number")
 	@NotBlank
 	private String cardNumber;
-
 
 	@Override
 	public String toString() {
