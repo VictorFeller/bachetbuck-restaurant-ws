@@ -16,12 +16,6 @@
 
 package ch.heg.ig.BachEtBuck.system;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
-
-import java.util.List;
-import java.util.Map;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,12 +26,13 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+
+import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 /**
  * Integration Test for {@link CrashController}.
@@ -75,24 +70,6 @@ class CrashControllerIntegrationTests {
 		assertThat(resp.getBody()).containsEntry("message",
 				"Expected: controller used to showcase what happens when an exception is thrown");
 		assertThat(resp.getBody()).containsEntry("path", "/oups");
-	}
-
-	@Test
-	void testTriggerExceptionHtml() {
-		HttpHeaders headers = new HttpHeaders();
-		headers.setAccept(List.of(MediaType.TEXT_HTML));
-		ResponseEntity<String> resp = rest.exchange("http://localhost:" + port + "/oups", HttpMethod.GET,
-				new HttpEntity<>(headers), String.class);
-		assertThat(resp).isNotNull();
-		assertThat(resp.getStatusCode().is5xxServerError());
-		assertThat(resp.getBody()).isNotNull();
-		// html:
-		assertThat(resp.getBody()).containsSubsequence("<body>", "<h2>", "Something happened...", "</h2>", "<p>",
-				"Expected:", "controller", "used", "to", "showcase", "what", "happens", "when", "an", "exception", "is",
-				"thrown", "</p>", "</body>");
-		// Not the whitelabel error page:
-		assertThat(resp.getBody()).doesNotContain("Whitelabel Error Page",
-				"This application has no explicit mapping for");
 	}
 
 }

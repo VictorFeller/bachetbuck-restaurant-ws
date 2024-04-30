@@ -12,7 +12,7 @@
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>3.2.1</version>
   </parent>
-  <name>petclinic</name>
+  <name>backetbuck-restaurant-ws</name>
 
   <properties>
 
@@ -358,27 +358,6 @@
                 </configuration>
               </execution>
             </executions>
-          </plugin>
-
-          <plugin>
-            <groupId>com.gitlab.haynes</groupId>
-            <artifactId>libsass-maven-plugin</artifactId>
-            <version>${libsass.version}</version>
-            <executions>
-              <execution>
-                <phase>generate-resources</phase>
-                <?m2e execute onConfiguration,onIncremental?>
-                <goals>
-                  <goal>compile</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <inputPath>${basedir}/src/main/scss/</inputPath>
-              <outputPath>${basedir}/src/main/resources/static/resources/css/</outputPath>
-              <includePath>
-                ${project.build.directory}/webjars/META-INF/resources/webjars/bootstrap/${webjars-bootstrap.version}/scss/</includePath>
-            </configuration>
           </plugin>
         </plugins>
       </build>

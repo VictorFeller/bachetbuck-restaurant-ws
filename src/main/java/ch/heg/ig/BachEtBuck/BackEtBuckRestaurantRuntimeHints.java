@@ -17,12 +17,10 @@
 package ch.heg.ig.BachEtBuck;
 
 import ch.heg.ig.BachEtBuck.model.BaseEntity;
-import ch.heg.ig.BachEtBuck.model.Person;
-import ch.heg.ig.BachEtBuck.vet.Vet;
 import org.springframework.aot.hint.RuntimeHints;
 import org.springframework.aot.hint.RuntimeHintsRegistrar;
 
-public class PetClinicRuntimeHints implements RuntimeHintsRegistrar {
+public class BackEtBuckRestaurantRuntimeHints implements RuntimeHintsRegistrar {
 
 	@Override
 	public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
@@ -31,8 +29,6 @@ public class PetClinicRuntimeHints implements RuntimeHintsRegistrar {
 		hints.resources().registerPattern("META-INF/resources/webjars/*");
 		hints.resources().registerPattern("mysql-default-conf");
 		hints.serialization().registerType(BaseEntity.class);
-		hints.serialization().registerType(Person.class);
-		hints.serialization().registerType(Vet.class);
 	}
 
 }

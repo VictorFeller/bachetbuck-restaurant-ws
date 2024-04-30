@@ -13,18 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.heg.ig.BachEtBuck.owner;
 
-import ch.heg.ig.BachEtBuck.model.NamedEntity;
+package ch.heg.ig.BachEtBuck;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ImportRuntimeHints;
 
 /**
- * @author Juergen Hoeller Can be Cat, Dog, Hamster...
+ * PetClinic Spring Boot Application.
+ *
+ * @author Dave Syer
+ *
  */
-@Entity
-@Table(name = "types")
-public class PetType extends NamedEntity {
+@SpringBootApplication
+@ImportRuntimeHints(BackEtBuckRestaurantRuntimeHints.class)
+public class BackEtBuckRestaurant {
+
+	public static void main(String[] args) {
+		SpringApplication.run(BackEtBuckRestaurant.class, args);
+	}
 
 }
