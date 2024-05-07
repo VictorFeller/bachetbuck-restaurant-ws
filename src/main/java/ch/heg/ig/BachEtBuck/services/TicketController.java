@@ -1,14 +1,14 @@
 package ch.heg.ig.BachEtBuck.services;
 
 import ch.heg.ig.BachEtBuck.business.Ticket;
-import ch.heg.ig.BachEtBuck.business.Tickets;
 import ch.heg.ig.BachEtBuck.persistance.TicketRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,21 +24,48 @@ public class TicketController {
 	}
 
 	@GetMapping("ticket/{ticketId}")
-	public Ticket findTicket(@PathVariable(name = "ticketId", required = false) Integer ticketId) {
-		return ticketId == null ? new Ticket() : this.ticketRepository.findById(ticketId);
+	public ResponseEntity<?> findTicket(@PathVariable(name = "ticketId", required = false) Integer ticketId) {
+		try {
+			Ticket ticket = this.ticketRepository.findById(ticketId);
+			if (ticket == null) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body("Aucun ticket trouvé pour l'id : " + ticketId);
+			}
+			return ResponseEntity.ok(ticket);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.body("Erreur lors de la récupération du ticket : " + e.getMessage());
+		}
 	}
 
 	@GetMapping("ticket")
-	public List<Ticket> findByPurchaseDate(
-			@PathVariable(name = "purchaseDate", required = false) @RequestParam String purchaseDate) {
-		return purchaseDate == null ? new ArrayList<>() : this.ticketRepository.findByPurchaseDate(purchaseDate);
+	public ResponseEntity<?> findByPurchaseDate(@RequestParam String purchaseDate) {
+		try {
+			List<Ticket> tickets= this.ticketRepository.findByPurchaseDate(purchaseDate);
+			if (tickets.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body("Aucun ticket trouvé pour la date donnée : " + purchaseDate);
+			}
+			return ResponseEntity.ok(tickets);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.body("Erreur lors de la récupération des tickets : " + e.getMessage());
+		}
 	}
 
 	@GetMapping("/tickets/all")
-	public List<Ticket> showTickets() {
-		Tickets tickets = new Tickets();
-		tickets.getTicketList().addAll(this.ticketRepository.findAll());
-		return tickets.getTicketList();
+	public ResponseEntity<?>showTickets() {
+		try {
+			List<Ticket> tickets = this.ticketRepository.findAll();
+			if (tickets.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body("Aucun ticket trouvé");
+			}
+			return ResponseEntity.ok(tickets);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.body("Erreur lors de la récupération des tickets : " + e.getMessage());
+		}
 	}
 
 }

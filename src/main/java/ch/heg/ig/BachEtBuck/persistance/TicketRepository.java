@@ -23,7 +23,6 @@ import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -60,6 +59,6 @@ public interface TicketRepository extends Repository<Ticket, Integer> {
 	 */
 	@Transactional(readOnly = true)
 	@Cacheable("tickets")
-	Collection<Ticket> findAll() throws DataAccessException;
+	List<Ticket> findAll() throws DataAccessException;
 
 }
