@@ -32,8 +32,7 @@ class CrashController {
 
 	@GetMapping("/error")
 	public ResponseEntity<?> triggerException() {
-		return ResponseEntity.status(HttpStatus.NOT_FOUND)
-			.body("Oups, cette page n'existe pas.");
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Oups, cette page n'existe pas.");
 	}
 
 }
