@@ -63,7 +63,8 @@ public interface TicketRepository extends Repository<Ticket, Integer> {
 	List<Ticket> findAll() throws DataAccessException;
 
 	/**
-	 * Retrieve the average amount of all tickets <code>Ticket</code>s from the data store.
+	 * Retrieve the average amount of all tickets <code>Ticket</code>s from the data
+	 * store.
 	 * @return a <code>Collection</code> of <code>Ticket</code>s
 	 */
 	@Query("SELECT AVG(totalAmount) AS average_total_amount FROM Ticket")
@@ -79,7 +80,8 @@ public interface TicketRepository extends Repository<Ticket, Integer> {
 	String findMostPurchasedItem();
 
 	/**
-	 * Retrieve the most used payment method of all <code>Ticket</code>s from the data store.
+	 * Retrieve the most used payment method of all <code>Ticket</code>s from the data
+	 * store.
 	 * @return a <code>Collection</code> of <code>Ticket</code>s
 	 */
 	@Query("SELECT paymentMethod, COUNT(*) as usage_count FROM Ticket GROUP BY paymentMethod ORDER BY usage_count DESC LIMIT 3")
@@ -87,7 +89,8 @@ public interface TicketRepository extends Repository<Ticket, Integer> {
 	List<String> findMostUsedPaymentMethod();
 
 	/**
-	 * Retrieve the sum of all <code>Ticket</code>s for a specific month from the data store.
+	 * Retrieve the sum of all <code>Ticket</code>s for a specific month from the data
+	 * store.
 	 * @return a <code>Collection</code> of <code>Ticket</code>s
 	 */
 	@Query("SELECT SUM(totalAmount) FROM Ticket WHERE SUBSTRING(purchaseDate, 4, 2) =:month")
@@ -95,12 +98,12 @@ public interface TicketRepository extends Repository<Ticket, Integer> {
 	BigDecimal findSumByMonth(@Param("month") String month);
 
 	/**
-	 * Retrieve the sum of all <code>Ticket</code>s for a specific year from the data store.
+	 * Retrieve the sum of all <code>Ticket</code>s for a specific year from the data
+	 * store.
 	 * @return a <code>Collection</code> of <code>Ticket</code>s
 	 */
 	@Query("SELECT SUM(totalAmount) FROM Ticket WHERE SUBSTRING(purchaseDate, 7, 4) =:year")
 	@Transactional(readOnly = true)
 	Integer findSumByYear(@Param("year") Integer year);
-
 
 }

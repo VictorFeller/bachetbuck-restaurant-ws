@@ -76,7 +76,8 @@ public class TicketController {
 		try {
 			BigDecimal averageAmount = this.ticketRepository.findAverageAmount();
 			if (averageAmount == null) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La moyenne du montant des tickets n'a pas été trouvée");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body("La moyenne du montant des tickets n'a pas été trouvée");
 			}
 			return ResponseEntity.ok(averageAmount);
 		}
@@ -91,7 +92,8 @@ public class TicketController {
 		try {
 			String averageAmount = this.ticketRepository.findMostPurchasedItem();
 			if (averageAmount == null) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La moyenne du montant des tickets n'a pas été trouvée");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body("La moyenne du montant des tickets n'a pas été trouvée");
 			}
 			return ResponseEntity.ok(averageAmount);
 		}
@@ -106,7 +108,8 @@ public class TicketController {
 		try {
 			List<String> mostUsedPaymentMethod = this.ticketRepository.findMostUsedPaymentMethod();
 			if (mostUsedPaymentMethod == null) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La moyen de paiement le plus utilisé n'a pas été trouvé");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body("La moyen de paiement le plus utilisé n'a pas été trouvé");
 			}
 			return ResponseEntity.ok(mostUsedPaymentMethod);
 		}
@@ -116,16 +119,17 @@ public class TicketController {
 		}
 	}
 
-
 	@GetMapping("/tickets/sumByMonth/{month}")
 	public ResponseEntity<?> showSumByMonth(@PathVariable(name = "month", required = false) String month) {
 		try {
-			if(Integer.parseInt(month) < 1 || Integer.parseInt(month) > 12)
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Le mois entré {" + month + "} n'est pas valide.");
+			if (Integer.parseInt(month) < 1 || Integer.parseInt(month) > 12)
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body("Le mois entré {" + month + "} n'est pas valide.");
 
 			BigDecimal sumByYear = this.ticketRepository.findSumByMonth(month);
 			if (sumByYear == null) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La somme de tous les tickets pour le mois de " + month + " n'a pas été trouvée.");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body("La somme de tous les tickets pour le mois de " + month + " n'a pas été trouvée.");
 			}
 			return ResponseEntity.ok(sumByYear);
 		}
@@ -140,7 +144,8 @@ public class TicketController {
 		try {
 			Integer sumByYear = this.ticketRepository.findSumByYear(year);
 			if (sumByYear == null) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La somme de tous les tickets pour l'année " + year + " n'a pas été trouvée.");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body("La somme de tous les tickets pour l'année " + year + " n'a pas été trouvée.");
 			}
 			return ResponseEntity.ok(sumByYear);
 		}
@@ -149,6 +154,5 @@ public class TicketController {
 				.body("Erreur lors de la récupération de la somme par année : " + e.getMessage());
 		}
 	}
-
 
 }
