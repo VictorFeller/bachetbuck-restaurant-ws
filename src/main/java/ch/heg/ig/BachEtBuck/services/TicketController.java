@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,9 +29,9 @@ public class TicketController {
 	}
 
 	@GetMapping("ticket")
-	public Ticket findByPurchaseDate(
+	public List<Ticket> findByPurchaseDate(
 			@PathVariable(name = "purchaseDate", required = false) @RequestParam String purchaseDate) {
-		return purchaseDate == null ? new Ticket() : this.ticketRepository.findByPurchaseDate(purchaseDate);
+		return purchaseDate == null ? new ArrayList<>() : this.ticketRepository.findByPurchaseDate(purchaseDate);
 	}
 
 	@GetMapping("/tickets/all")

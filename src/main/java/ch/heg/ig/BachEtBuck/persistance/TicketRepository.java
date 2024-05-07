@@ -24,6 +24,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Repository class for <code>Ticket</code> domain objects All method names are compliant
@@ -51,7 +52,7 @@ public interface TicketRepository extends Repository<Ticket, Integer> {
 	 */
 	@Query("SELECT ticket FROM Ticket ticket WHERE ticket.purchaseDate =:purchaseDate")
 	@Transactional(readOnly = true)
-	Ticket findByPurchaseDate(@Param("purchaseDate") String purchaseDate);
+	List<Ticket> findByPurchaseDate(@Param("purchaseDate") String purchaseDate);
 
 	/**
 	 * Retrieve all <code>Ticket</code>s from the data store.
