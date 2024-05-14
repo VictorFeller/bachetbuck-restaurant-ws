@@ -1,18 +1,3 @@
-/*
- * Copyright 2012-2019 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package ch.heg.ig.BachEtBuck.persistance;
 
 import ch.heg.ig.BachEtBuck.business.Ticket;
@@ -26,14 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 
-/**
- * Repository class for <code>Ticket</code> domain objects All method names are compliant
- * with Spring Data naming conventions so this interface can easily be extended for Spring
- * Data. See:
- * https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-creation
- *
- * @author Victor Feller
- */
 public interface TicketRepository extends Repository<Ticket, Integer> {
 
 	/**
@@ -75,9 +52,9 @@ public interface TicketRepository extends Repository<Ticket, Integer> {
 	 * Retrieve the average amount of all <code>Ticket</code>s from the data store.
 	 * @return a <code>Collection</code> of <code>Ticket</code>s
 	 */
-	@Query("SELECT itemsPurchased, COUNT(*) AS purchase_count FROM Ticket GROUP BY itemsPurchased ORDER BY purchase_count DESC LIMIT 1")
+	@Query("SELECT itemsPurchased, COUNT(*) AS purchase_count FROM Ticket GROUP BY itemsPurchased ORDER BY purchase_count DESC LIMIT 3")
 	@Transactional(readOnly = true)
-	String findMostPurchasedItem();
+	List<String> findMostPurchasedItem();
 
 	/**
 	 * Retrieve the most used payment method of all <code>Ticket</code>s from the data
@@ -93,9 +70,9 @@ public interface TicketRepository extends Repository<Ticket, Integer> {
 	 * store.
 	 * @return a <code>Collection</code> of <code>Ticket</code>s
 	 */
-	@Query("SELECT SUM(totalAmount) FROM Ticket WHERE SUBSTRING(purchaseDate, 4, 2) =:month")
+	@Query("SELECT SUM(totalAmount) FROM Ticket WHERE SUBSTRING(purchaseDate, 7, 4) =:year AND SUBSTRING(purchaseDate, 4, 2) =:month")
 	@Transactional(readOnly = true)
-	BigDecimal findSumByMonth(@Param("month") String month);
+	BigDecimal findSumByYearMonth(@Param("year") String year, @Param("month") String month);
 
 	/**
 	 * Retrieve the sum of all <code>Ticket</code>s for a specific year from the data
@@ -104,6 +81,6 @@ public interface TicketRepository extends Repository<Ticket, Integer> {
 	 */
 	@Query("SELECT SUM(totalAmount) FROM Ticket WHERE SUBSTRING(purchaseDate, 7, 4) =:year")
 	@Transactional(readOnly = true)
-	Integer findSumByYear(@Param("year") Integer year);
+	BigDecimal findSumByYear(@Param("year") String year);
 
 }
