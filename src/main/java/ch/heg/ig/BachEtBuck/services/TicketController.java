@@ -3,7 +3,6 @@ package ch.heg.ig.BachEtBuck.services;
 import ch.heg.ig.BachEtBuck.business.Ticket;
 import ch.heg.ig.BachEtBuck.persistance.TicketRepository;
 import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -89,7 +88,7 @@ public class TicketController {
 			Gson gson = new Gson();
 			//Crée un objet Map pour contenir la somme
 			Map<String, BigDecimal> response = new HashMap<>();
-			response.put("averageAmount", averageAmount);
+			response.put("sum", averageAmount);
 			//Convertit en JSON
 			String jsonData = gson.toJson(response);
 			return ResponseEntity.ok(jsonData);
